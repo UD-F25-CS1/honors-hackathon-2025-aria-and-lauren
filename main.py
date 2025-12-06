@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from drafter.llm import LLMMessage, LLMResponse, call_gemini, set_gemini_server
 
 
-from meta import *
+#from meta import *
 
 # hide_debug_information()
 # set_website_framed(False)
