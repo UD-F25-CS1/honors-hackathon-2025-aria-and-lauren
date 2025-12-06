@@ -492,7 +492,9 @@ def cabinet(state:State)->Page:
 @route
 def bedroom (state: State) -> Page:
     state.location = "bedroom"
-    return Page(state, ["You have entered the bedroom",
+    return Page(state, [
+                        Image("bedroom.jpg", width = 350),
+                        "You have entered the bedroom",
                         Button("Check Closet", no_duck),
                         Button("Check Under Bed", found_duck),
                         Button("Check Dresser", no_duck),
@@ -506,7 +508,9 @@ def bedroom (state: State) -> Page:
 @route
 def living_room(state: State) -> Page:
     state.location = "living_room"
-    return Page(state, ["You have entered the bedroom",
+    return Page(state, [
+                        Image("living_room.jpg", width = 350),
+                        "You have entered the bedroom",
                         Button("Check Behind Couch", found_duck),
                         Button("Check Fireplace", no_duck),
                         Button(text="Go Back", url="/hallway"),
