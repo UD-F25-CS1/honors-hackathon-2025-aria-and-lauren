@@ -8,12 +8,13 @@ from meta import *
 
 # hide_debug_information()
 # set_website_framed(False)
-set_website_title("Your Drafter Website")
+set_website_title("Duck Duck Goose")
 set_site_information(
-    "author",
+    "Authors: Aria and Lauren.",
     """
-Your description can go here.
-""",
+    Explore the wonderful fields, forests, towns, and lakes as you search for ducks in this wide world. However, you must beware the wandering
+    goose who lusts for blood. Good luck, you'll need it.
+    """,
     [],
     [],
     [],
@@ -35,11 +36,6 @@ Will also encounter duck in back of cave
 Duck Hunt OR Duck Duck Goose
 
 """
-
-
-from drafter import *
-from bakery import assert_equal
-from dataclasses import dataclass
 
 set_website_style("sakura")
 
@@ -92,7 +88,7 @@ def start_page(state: State, name: str) -> Page:
     state.inventory = []
     state.location = "start_page"
     return Page(state, ["Welcome, " + state.name,
-                        "Your goal is to find all 10 ducks.",
+                        "Your goal is to find all 8 ducks.",
                         "You may explore the surounding lands in search of these ducks, using any items you may find.",
                         "Enjoy, and stay safe.",
                         Button("Play Game", main_room)
@@ -412,7 +408,7 @@ def hallway(state:State)->Page:
         state,
         content=[
             "You have arrived in hallway.",
-            Image("spawn_point.png", width = 350),
+            Image("hallway.png", width = 350),
             "There are doors on both sides.",
             "Where will you explore?",
             Button(text="Kitchen", url="/kitchen"),
