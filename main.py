@@ -357,7 +357,7 @@ def house_1(state:State)->Page:
         return Page(
         state,
         content=[
-            Image("red.jpg", width = 350),
+            Image("blue.jpg", width = 350),
             "The house is locked.",
             "There might be a key nearby.",
             "Would you like to go back or check around the side of the house?",
@@ -525,7 +525,7 @@ def house_2(state:State)->Page:
     return Page(
         state,
         content=[
-            Image("house2.png", width = 350),
+            Image("red.jpg", width = 350),
             "The front door is open.",
             "There are breadcrumbs outside.",
             "You have a bad feeing about this.",
