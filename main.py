@@ -552,7 +552,7 @@ def death(state: State) -> Page:
 def found_duck(state: State) -> Page:
     state.ducks_found += 1
     return Page(state, ["Congratulations! You have found a duck.",
-                        Image(""),
+                        Image("found_duck.png"),
                         Button("Go Back", state.location),
                         "You have found " + str(state.ducks_found) + " ducks."
                         ])
