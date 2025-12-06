@@ -11,3 +11,171 @@
     "ruff.configuration": "pyproject.toml",
     "chat.useAgentsMdFile": true
 }
+"""Concept: Find all the ducks
+duck locations:
+    forest: up in trees, in a log, if you have a shovel - in cave (on gold, behind stalagmite),
+    field: by lake, if you have seeds - in grass, in middle of lake
+    town: in well, in house (cabinet), if you have a ladder - on roof, 
+
+if you try to use a hammer to open the cabinet, the duck with a knife will appear and save one of the ducks you have found
+
+item ideas: hammer (town), shovel(field), seeds(forest), ladder(field), key(cave)
+locations: forest -> cave, field, town -> house -> kitchen
+
+"""
+
+
+from drafter import *
+from bakery import assert_equal
+from dataclasses import dataclass
+
+@dataclass
+class State:
+    name: str
+    ducks_found: int
+    location: str
+    inventory: list[str]
+    
+
+
+@route
+def index(state: State) -> Page:
+    return Page(state, ["Welcome to the Duck Hunt!",
+                        "Please enter your name.",
+                        TextBox("name"),
+                        Button("enter", start_page)
+                        ])
+
+
+@route
+def show_inventory(state: State) -> Page:
+    """Displays all items in the player's inventory.
+
+    Args:
+        state(State): the state of the game.
+        
+    Returns:
+        Page: the player's inventory.
+    """
+    
+    if not state.inventory:
+        content = ["Your inventory is empty."]
+    else:
+        content = ["Your inventory contains:"]
+        for item in state.inventory:  # <-- meaningful loop
+            content.append("- " + item)  
+    
+    content.append(Button("Go Back", url="/" + state.location))
+    
+    return Page(state, content)
+
+
+@route
+def start_page(state: State, name: str) -> Page:
+    state.name = name
+    state.location = "start_page"
+    return Page(state, ["Welcome, " + state.name,
+                        "Your goal is to find all 10 ducks.",
+                        "You may explore the surounding lands in search of these ducks, using any items you may find.",
+                        "Enjoy, and stay safe.",
+                        Button("Play Game", main_room)
+                        ])
+
+@route
+def main_room(state: State) -> Page:
+    state.location = "main_room"
+    return Page(state, ["You are in a grassy field.",
+                        "Three options lay before you, where would you like to go?",
+                        Button("The Forest", forest_page),
+                        Button("Farther into the Field", field_page),
+                        Button("Around a Bend in the Path", town_page)
+                        ])
+
+@route
+def forest(state: State) -> Page:
+    state.location = "forest"
+    if "shovel" in state.inventory:
+        return Page(state, ["You have entered the forest.",
+                            "You notice a suspicious patch of dirt.",
+                            Button("Check Up in Trees", found_duck),
+                            Button("Check Behind Tree", no_duck),
+                            Button("Check Under Rock", no_duck),
+                            Button("Check Suspicious Dirt", cave),
+                            Button("Check Log", found_duck)
+                            ])
+    else:
+        return Page(state, ["You have entered the forest."
+                            ]
+
+@route
+def cave(state: State) -> Page:
+    state.location = "cave"
+    return Page(state, ["You have found a cave!"])
+
+@route
+def deeper_cave()
+
+@route
+def field(state: State) -> Page:
+    state.location = "field"
+    return Page(state, [""
+                        ])
+
+@route
+def town(state: State) -> Page:
+    state.location = "town"
+    return Page(state, [""
+                        ])
+   
+@route
+def house(state:State)->Page:
+    state.location="house"
+    if state.has_key == True:
+        return Page(
+        state,
+        content=[
+            Image("shipwreck.png", width = 350),
+            "The house is locked.",
+            "You now have a key",
+            Button(text="Fix Ship", url="/pirate_ending"),
+            Button(text="Go Back", url="/ocean"),
+            "\n",
+            Button(text="Show Inventory", url="/show_inventory"),
+            ]
+        )
+    else:
+        return Page(
+        state,
+        content=[
+            Image("shipwreck.jpg", width = 350),
+            "The house is locked.",
+            "It could probably be repaired.",
+            Button(text="Go Back", url="/ocean"),
+            "\n",
+            Button(text="Show Inventory", url="/show_inventory"),
+        ]
+    )
+
+@route
+def kitchen(state:State)->Page:
+    state.location="kitchen"
+    return Page(state,[""
+                       ])
+
+
+@route
+def found_duck(state: State) -> Page:
+    state.ducks_found += 1
+    return Page(state, ["Congratulations! You have found a duck.",
+                        Image(""),
+                        Button("Go Back", state.location)
+                        ])
+    
+@route
+def no_duck(state: State) -> Page:
+    return Page(state, ["There is no duck here",
+                        Button("Return", state.location)])
+    
+    
+    
+start_server(State("", 0, "", []))
