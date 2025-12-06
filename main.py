@@ -161,7 +161,7 @@ def find_seeds(state: State) -> Page:
 
 @route
 def get_seeds(state: State) -> Page:
-    if "Seeds" not in inventory:
+    if "Seeds" not in state.inventory:
         state.inventory.append("Seeds")
         return find_seeds(state)
     else:
